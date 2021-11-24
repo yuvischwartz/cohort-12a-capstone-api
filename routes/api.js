@@ -39,20 +39,33 @@ router.get('/answers', async function(req, res, next) {
 
 //create question: - POST /api/v1/questions
 router.post('/questions', function(req, res, next) {
-    res.json({success: true});
+    console.log(req.body);
+    let item = await Question.create(req.body);
+    res.json(item);
+    // res.json({ success: true });
   });
 
-//create answer: - POST /api/v1/answers
-router.get('/answers', async function(req, res, next) {
-    //write some code here to fetch answers
-    res.json({ success: true });
-}); 
-
-
-/* GET home page. */ //api/v1/test
-router.get('/test', function(req, res, next) {
-  res.json({success: true});
+  //create answer: - POST /api/v1/answers
+router.post('/questions', function(req, res, next) {
+    console.log(req.body);
+    let item = await Answer.create(req.body);
+    res.json(item);
+    // res.json({ success: true });
 });
+  
+
+  
+// //create answer: - POST /api/v1/answers
+// router.get('/answers', async function(req, res, next) {
+//     //write some code here to fetch answers
+//     res.json({ success: true });
+// }); 
+
+
+// /* GET home page. */ //api/v1/test
+// router.get('/test', function(req, res, next) {
+//   res.json({success: true});
+// });
 
 
   
