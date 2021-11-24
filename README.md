@@ -5,3 +5,4 @@
 # Next Session: 
 ___
 > Add the user authentication 
+4. Write code in api.js to fill out the endpoints 
