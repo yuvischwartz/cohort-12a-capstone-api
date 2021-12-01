@@ -15,46 +15,43 @@ console.log(models)
 //Fetch categories: - GET /api/v1/categories
 router.get('/categories', async function(req, res, next) {
     //write some code here to fetch categories
-    let items = await Category.findAll({});
-    res.json(items);
-    // res.json({ success: true });
+    let categories = await models.Category.findAll({});
+    res.json({ success: categories });
 }); 
 
 //Fetch questions: - GET /api/v1/questions
-router.get('/questions', async function(req, res, next) {
+router.get('/categories/:categorydId/questions', async function(req, res, next) {
     //write some code here to fetch questions
-    let items = await Question.findAll({});
-    res.json(items);
-    // res.json({ success: true });
+    let questions = await models.Question.findAll({where: {categoryId: req.params.categoryId}});
+    res.json(questions);
 }); 
 
 //Fetch answers: - GET /api/v1/answers
-router.get('/answers', async function(req, res, next) {
+router.get('/questions/:questionId/answers', async function(req, res, next) {
     //write some code here to fetch answers
-    let items = await Answer.findAll({});
-    res.json(items);
-    // res.json({ success: true });
+    let answers = await models.Answer.findAll({where: {questionId: req.params.questionId}});
+    res.json(answers);
 }); 
-  
 
 //create question: - POST /api/v1/questions
-router.post('/questions', function(req, res, next) {
+router.post('/categories/:categorydId/questions', async function (req, res, next) {
+    //this is where the information is available to us as req.body
     console.log(req.body);
-    let item = await Question.create(req.body);
+    //the query create an item in the Question table
+    let question = await models.Question.create({questionTxt: req.body.questionTxt, categoryId: req.params.categoryId});
     res.json(item);
-    // res.json({ success: true });
-  });
-
-  //create answer: - POST /api/v1/answers
-router.post('/questions', function(req, res, next) {
-    console.log(req.body);
-    let item = await Answer.create(req.body);
-    res.json(item);
-    // res.json({ success: true });
 });
-  
 
-  
+//create answer: - POST /api/v1/answers
+router.post('/questions/:questionId/answers', async function (req, res, next) {
+    //this is where the information is available to us as req.body
+    console.log(req.body);
+    //the query create an item in the Answer table
+    let answer = await models.Answer.create({answerTxt:req.body.answerTxt, questionId: req.params.questionId});
+    res.json(item);
+});
+
+    
 // //create answer: - POST /api/v1/answers
 // router.get('/answers', async function(req, res, next) {
 //     //write some code here to fetch answers
