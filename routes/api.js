@@ -39,7 +39,7 @@ router.post('/categories/:categorydId/questions', async function (req, res, next
     console.log(req.body);
     //the query create an item in the Question table
     let question = await models.Question.create({questionTxt: req.body.questionTxt, categoryId: req.params.categoryId});
-    res.json(item);
+    res.json(question);
 });
 
 //create answer: - POST /api/v1/answers
@@ -48,7 +48,7 @@ router.post('/questions/:questionId/answers', async function (req, res, next) {
     console.log(req.body);
     //the query create an item in the Answer table
     let answer = await models.Answer.create({answerTxt:req.body.answerTxt, questionId: req.params.questionId});
-    res.json(item);
+    res.json(answer);
 });
 
     
